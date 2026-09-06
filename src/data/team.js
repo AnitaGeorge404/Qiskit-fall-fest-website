@@ -1,0 +1,34 @@
+export const team = [
+  {
+    name: "Dr. Rubell Marion Lincy G",
+    role: "Founder, QuDAIS Lab",
+    image: "RM",
+    idNumber: "001",
+    department: "Computer Science",
+    linkedin: "#"
+  },
+  {
+    name: "Dr. Asha Sebastian",
+    role: "Member, QuDAIS Lab",
+    image: "AS",
+    idNumber: "002",
+    department: "Computer Science",
+    linkedin: "#"
+  },
+  {
+    name: "Dr. Jayakumar V",
+    role: "CEO, Anuthantra",
+    image: "JV",
+    idNumber: "003",
+    department: "Industry",
+    linkedin: "#"
+  },
+  {
+    name: "Faculty Members",
+    role: "Judges",
+    image: "IIIT",
+    idNumber: "004",
+    department: "IIIT Kottayam",
+    linkedin: "#"
+  }
+];
