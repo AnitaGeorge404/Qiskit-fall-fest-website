@@ -2,6 +2,7 @@ import React, { Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Environment, ContactShadows, useGLTF, Html, Center } from '@react-three/drei';
 import * as THREE from 'three';
+import TextType from './TextType';
 
 function QuantumModel(props) {
   const { scene } = useGLTF('/models/quantum-computer.glb');
@@ -58,9 +59,9 @@ export default function Experience() {
     <section id="events" className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       <div className="flex flex-col lg:flex-row gap-8 min-h-[600px]">
         {/* Left Column - 3D Quantum Computer Box */}
-        <div className="w-full lg:w-1/2 bg-white/5 border border-white/10 backdrop-blur-md rounded-2xl overflow-hidden relative flex flex-col p-0 items-center justify-center min-h-[500px] lg:min-h-[600px] shadow-2xl">
+        <div className="w-full lg:w-1/2 bg-white/40 border border-[var(--border-color)] backdrop-blur-md rounded-2xl overflow-hidden relative flex flex-col p-0 items-center justify-center min-h-[500px] lg:min-h-[600px] shadow-2xl">
           <div className="absolute top-4 left-4 z-20">
-            <div className="inline-block px-3 py-1 rounded-full bg-white/10 border border-white/20 text-xs font-mono text-white/80 uppercase tracking-wider backdrop-blur-md">
+            <div className="inline-block px-3 py-1 rounded-full bg-black/5 border border-[var(--border-color)] text-xs font-mono text-[var(--text-primary)] uppercase tracking-wider backdrop-blur-md">
               Interactive Hardware Model
             </div>
           </div>
@@ -73,7 +74,7 @@ export default function Experience() {
               <directionalLight position={[-10, -10, 10]} intensity={0.5} color="#ffffff" />
               <directionalLight position={[0, 0, 15]} intensity={1.0} color="#ffffff" />
               
-              <Suspense fallback={<Html center><div className="text-white/80 font-mono text-sm whitespace-nowrap bg-black/50 px-4 py-2 rounded-md backdrop-blur-md">Loading 3D Model...</div></Html>}>
+              <Suspense fallback={<Html center><div className="text-[var(--text-primary)] font-mono text-sm whitespace-nowrap bg-white/80 border border-[var(--border-color)] px-4 py-2 rounded-md backdrop-blur-md shadow-sm">Loading 3D Model...</div></Html>}>
                 <Center>
                   <QuantumModel scale={7.5} />
                 </Center>
@@ -96,31 +97,33 @@ export default function Experience() {
         </div>
 
         {/* Right Column - Core Objectives Box */}
-        <div className="w-full lg:w-1/2 bg-white/5 border border-white/10 backdrop-blur-md rounded-2xl p-8 md:p-12 text-white flex flex-col justify-center shadow-2xl">
-          <h2 className="text-4xl md:text-5xl font-black mb-10 text-transparent bg-clip-text bg-gradient-to-r from-white to-white/70">Learn. Build. Share.</h2>
+        <div className="w-full lg:w-1/2 bg-white/40 border border-[var(--border-color)] backdrop-blur-md rounded-2xl p-8 md:p-12 text-[var(--text-primary)] flex flex-col justify-center shadow-2xl">
+          <h2 className="text-4xl md:text-5xl font-black mb-10 text-[var(--text-primary)]">
+            <TextType text="What you will earn" loop={false} startOnVisible={true} />
+          </h2>
           
           <div className="space-y-8 mb-10 flex-grow">
-            <div className="flex gap-6 border-b border-white/10 pb-6">
+            <div className="flex gap-6 border-b border-[var(--border-color)] pb-6">
               <div>
                 <h3 className="text-xl font-bold mb-2">Learn from the flock</h3>
-                <p className="text-gray-300 text-base leading-relaxed">Connect with industry experts and learn quantum fundamentals from scratch.</p>
+                <p className="text-[var(--muted-foreground)] text-base leading-relaxed">Connect with industry experts and learn quantum fundamentals from scratch.</p>
               </div>
             </div>
-            <div className="flex gap-6 border-b border-white/10 pb-6">
+            <div className="flex gap-6 border-b border-[var(--border-color)] pb-6">
               <div>
                 <h3 className="text-xl font-bold mb-2">Build in the cloud</h3>
-                <p className="text-gray-300 text-base leading-relaxed">Run real quantum circuits directly on IBM Quantum hardware during the hackathon.</p>
+                <p className="text-[var(--muted-foreground)] text-base leading-relaxed">Run real quantum circuits directly on IBM Quantum hardware during the hackathon.</p>
               </div>
             </div>
             <div className="flex gap-6 pb-2">
               <div>
                 <h3 className="text-xl font-bold mb-2">Share the sky</h3>
-                <p className="text-gray-300 text-base leading-relaxed">Collaborate with peers globally and present your innovative projects to the community.</p>
+                <p className="text-[var(--muted-foreground)] text-base leading-relaxed">Collaborate with peers globally and present your innovative projects to the community.</p>
               </div>
             </div>
           </div>
 
-          <div className="mt-auto bg-black/20 p-5 rounded-lg text-sm leading-relaxed border-l-4 border-[var(--accent-pink)]">
+          <div className="mt-auto bg-[var(--muted)]/50 p-5 rounded-lg text-sm leading-relaxed border-l-4 border-[var(--accent-pink)] text-[var(--muted-foreground)]">
             Open to the public. Registration is required. In-person attendees should confirm they can attend at IIIT Kottayam and consent to event photography during registration.
           </div>
         </div>
