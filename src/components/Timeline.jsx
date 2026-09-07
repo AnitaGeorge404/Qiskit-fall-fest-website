@@ -102,7 +102,7 @@ function Node({ item, isLeft, progress, index, total }) {
       <div className={`w-full pl-20 lg:pl-0 lg:w-1/2 flex ${isLeft ? 'lg:justify-end lg:pr-16' : 'lg:justify-start lg:pl-16'}`}>
          
          <motion.div 
-           className={`relative w-full max-w-[450px] p-6 lg:p-8 group ${isLeft ? 'lg:text-right' : 'text-left'}`}
+           className={`relative w-full max-w-[450px] p-6 lg:p-8 group text-left`}
            style={{ opacity, y }}
          >
            {/* Card Background */}
@@ -112,7 +112,7 @@ function Node({ item, isLeft, progress, index, total }) {
            <div className="absolute top-0 left-0 w-8 h-8 border-t-[2px] border-l-[2px] border-transparent group-hover:border-[var(--accent-blue)] transition-all duration-500 rounded-tl-lg"></div>
            <div className="absolute bottom-0 right-0 w-8 h-8 border-b-[2px] border-r-[2px] border-transparent group-hover:border-[var(--accent-blue)] transition-all duration-500 rounded-br-lg"></div>
 
-           <div className={`relative z-20 flex flex-col gap-2 ${isLeft ? 'lg:items-end' : 'items-start'}`}>
+           <div className={`relative z-20 flex flex-col gap-2 items-start`}>
              {/* Background Number */}
              <div className="absolute -top-6 -right-2 text-7xl lg:text-8xl font-bold font-sans pointer-events-none transition-colors duration-500 select-none">
                <span className="text-[var(--border-color)] opacity-40 group-hover:text-[var(--accent-blue)] group-hover:opacity-10 transition-colors duration-500">
