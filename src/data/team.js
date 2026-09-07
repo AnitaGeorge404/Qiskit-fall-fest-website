@@ -5,7 +5,9 @@ export const team = [
     image: "RM",
     idNumber: "001",
     department: "Computer Science",
-    linkedin: "#"
+    linkedin: "#",
+    email: "#",
+    iiitkLink: "#"
   },
   {
     name: "Dr. Asha Sebastian",
@@ -13,7 +15,9 @@ export const team = [
     image: "AS",
     idNumber: "002",
     department: "Computer Science",
-    linkedin: "#"
+    linkedin: "#",
+    email: "#",
+    iiitkLink: "#"
   },
   {
     name: "Dr. Jayakumar V",
@@ -21,7 +25,9 @@ export const team = [
     image: "JV",
     idNumber: "003",
     department: "Industry",
-    linkedin: "#"
+    linkedin: "#",
+    email: "#",
+    iiitkLink: "#"
   },
   {
     name: "Faculty Members",
@@ -29,6 +35,8 @@ export const team = [
     image: "IIIT",
     idNumber: "004",
     department: "IIIT Kottayam",
-    linkedin: "#"
+    linkedin: "#",
+    email: "#",
+    iiitkLink: "#"
   }
 ];

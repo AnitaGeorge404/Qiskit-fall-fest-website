@@ -1,0 +1,140 @@
+<body >
+  <div class='relative z-20 w-full max-w-6xl mx-auto flex 
+           flex-col gap-20 lg:gap-32 py-10 lg:py-20 px-4 md:px-12
+           justify-between
+         ' data-pex='okimsj1-0'>
+    <div class='absolute left-[39px] lg:left-1/2 top-0 bottom-0 w-[2px] lg:-translate-x-[1px] bg-slate-800/80 origin-center z-0' data-pex='okimsj1-1'>
+    <div class='absolute left-[39px] lg:left-1/2 top-0 w-[2px] bg-gradient-to-b from-[#0ea5e9] to-[#38bdf8] lg:-translate-x-[1px] origin-top z-10 shadow-[0_0_15px_#0ea5e9]' data-pex='okimsj1-2'>
+    <div class='relative flex items-center z-20 
+         w-full lg:flex-row min-h-[120px]
+       ' data-pex='okimsj1-3'>
+      <div class='hidden lg:block lg:w-1/2' data-pex='okimsj1-4'>
+      <div class='flex items-center justify-center shrink-0 absolute left-[39px] lg:left-1/2 -translate-x-[15px] lg:-translate-x-1/2 w-[30px] h-[30px]' data-pex='okimsj1-5'>
+        <div class='w-3 h-3 border-[2px] shadow-[0_0_20px_#0ea5e9]' data-pex='okimsj1-6'>
+      <div class='w-full pl-24 lg:pl-0 lg:w-1/2 flex lg:justify-start lg:pl-16' data-pex='okimsj1-7'>
+        <div class='relative w-full max-w-[450px] p-6 lg:p-8 transition-all duration-1000 ease-out group perspective-1000 preserve-3d opacity-100 translate-y-0' data-pex='okimsj1-8'>
+          <div class='absolute inset-0 bg-[#01020a]/90 border backdrop-blur-xl transition-all duration-700 ease-out z-0 border-[#0ea5e9]/50 shadow-[0_10px_40px_-10px_rgba(14,165,233,0.3)]' data-pex='okimsj1-9'>
+          <div class='absolute top-0 left-0 w-8 h-8 border-t-[2px] border-l-[2px] transition-all duration-500 z-10 border-[#0ea5e9]' data-pex='okimsj1-10'>
+          <div class='absolute bottom-0 right-0 w-8 h-8 border-b-[2px] border-r-[2px] transition-all duration-500 z-10 border-[#0ea5e9]' data-pex='okimsj1-11'>
+          <div class='relative z-20 flex flex-col gap-2' data-pex='okimsj1-12'>
+            <div class='absolute -top-4 -right-2 text-6xl lg:text-7xl font-bold font-sans pointer-events-none transition-colors duration-500' data-pex='okimsj1-13'>
+              <span class='text-[#0ea5e9]/20' data-pex='okimsj1-14'>
+                01
+            <h3 class='text-white font-bold font-mono text-2xl lg:text-3xl tracking-wide uppercase' data-pex='okimsj1-15'>
+              July 05
+            <div class='h-[2px] bg-[#0ea5e9] my-1 transition-all duration-700 ease-out w-16' data-pex='okimsj1-16'>
+            <h4 class='text-lg lg:text-xl font-semibold transition-colors duration-500 text-[#0ea5e9]' data-pex='okimsj1-17'>
+              Theme & Tracks Release
+            <p class='text-slate-400 text-sm lg:text-base leading-relaxed mt-2' data-pex='okimsj1-18'>
+              Grand reveal of the Hackathon Theme and Tracks.
+    <div class='relative flex items-center z-20 
+         w-full lg:flex-row-reverse min-h-[120px]
+       ' data-pex='okimsj1-19'>
+      <div class='hidden lg:block lg:w-1/2' data-pex='okimsj1-20'>
+      <div class='flex items-center justify-center shrink-0 absolute left-[39px] lg:left-1/2 -translate-x-[15px] lg:-translate-x-1/2 w-[30px] h-[30px]' data-pex='okimsj1-21'>
+        <div class='w-3 h-3 border-[2px] ' data-pex='okimsj1-22'>
+      <div class='w-full pl-24 lg:pl-0 lg:w-1/2 flex lg:justify-end lg:pr-16' data-pex='okimsj1-23'>
+        <div class='relative w-full max-w-[450px] p-6 lg:p-8 transition-all duration-1000 ease-out group perspective-1000 preserve-3d opacity-30 translate-y-8' data-pex='okimsj1-24'>
+          <div class='absolute inset-0 bg-[#01020a]/90 border backdrop-blur-xl transition-all duration-700 ease-out z-0 border-slate-800' data-pex='okimsj1-25'>
+          <div class='absolute top-0 left-0 w-8 h-8 border-t-[2px] border-l-[2px] transition-all duration-500 z-10 border-transparent' data-pex='okimsj1-26'>
+          <div class='absolute bottom-0 right-0 w-8 h-8 border-b-[2px] border-r-[2px] transition-all duration-500 z-10 border-transparent' data-pex='okimsj1-27'>
+          <div class='relative z-20 flex flex-col gap-2' data-pex='okimsj1-28'>
+            <div class='absolute -top-4 -right-2 text-6xl lg:text-7xl font-bold font-sans pointer-events-none transition-colors duration-500' data-pex='okimsj1-29'>
+              <span class='text-slate-800/30' data-pex='okimsj1-30'>
+                02
+            <h3 class='text-white font-bold font-mono text-2xl lg:text-3xl tracking-wide uppercase' data-pex='okimsj1-31'>
+              July 15
+            <div class='h-[2px] bg-[#0ea5e9] my-1 transition-all duration-700 ease-out w-0' data-pex='okimsj1-32'>
+            <h4 class='text-lg lg:text-xl font-semibold transition-colors duration-500 text-slate-500' data-pex='okimsj1-33'>
+              Registrations Open
+            <p class='text-slate-400 text-sm lg:text-base leading-relaxed mt-2' data-pex='okimsj1-34'>
+              Teams can register and submit their abstracts
+    <div class='relative flex items-center z-20 
+         w-full lg:flex-row min-h-[120px]
+       ' data-pex='okimsj1-35'>
+      <div class='hidden lg:block lg:w-1/2' data-pex='okimsj1-36'>
+      <div class='flex items-center justify-center shrink-0 absolute left-[39px] lg:left-1/2 -translate-x-[15px] lg:-translate-x-1/2 w-[30px] h-[30px]' data-pex='okimsj1-37'>
+        <div class='w-3 h-3 border-[2px] ' data-pex='okimsj1-38'>
+      <div class='w-full pl-24 lg:pl-0 lg:w-1/2 flex lg:justify-start lg:pl-16' data-pex='okimsj1-39'>
+        <div class='relative w-full max-w-[450px] p-6 lg:p-8 transition-all duration-1000 ease-out group perspective-1000 preserve-3d opacity-30 translate-y-8' data-pex='okimsj1-40'>
+          <div class='absolute inset-0 bg-[#01020a]/90 border backdrop-blur-xl transition-all duration-700 ease-out z-0 border-slate-800' data-pex='okimsj1-41'>
+          <div class='absolute top-0 left-0 w-8 h-8 border-t-[2px] border-l-[2px] transition-all duration-500 z-10 border-transparent' data-pex='okimsj1-42'>
+          <div class='absolute bottom-0 right-0 w-8 h-8 border-b-[2px] border-r-[2px] transition-all duration-500 z-10 border-transparent' data-pex='okimsj1-43'>
+          <div class='relative z-20 flex flex-col gap-2' data-pex='okimsj1-44'>
+            <div class='absolute -top-4 -right-2 text-6xl lg:text-7xl font-bold font-sans pointer-events-none transition-colors duration-500' data-pex='okimsj1-45'>
+              <span class='text-slate-800/30' data-pex='okimsj1-46'>
+                03
+            <h3 class='text-white font-bold font-mono text-2xl lg:text-3xl tracking-wide uppercase' data-pex='okimsj1-47'>
+              August 15
+            <div class='h-[2px] bg-[#0ea5e9] my-1 transition-all duration-700 ease-out w-0' data-pex='okimsj1-48'>
+            <h4 class='text-lg lg:text-xl font-semibold transition-colors duration-500 text-slate-500' data-pex='okimsj1-49'>
+              Registrations Close
+            <p class='text-slate-400 text-sm lg:text-base leading-relaxed mt-2' data-pex='okimsj1-50'>
+              Last day to submit your project abstract and secure your spot.
+    <div class='relative flex items-center z-20 
+         w-full lg:flex-row-reverse min-h-[120px]
+       ' data-pex='okimsj1-51'>
+      <div class='hidden lg:block lg:w-1/2' data-pex='okimsj1-52'>
+      <div class='flex items-center justify-center shrink-0 absolute left-[39px] lg:left-1/2 -translate-x-[15px] lg:-translate-x-1/2 w-[30px] h-[30px]' data-pex='okimsj1-53'>
+        <div class='w-3 h-3 border-[2px] ' data-pex='okimsj1-54'>
+      <div class='w-full pl-24 lg:pl-0 lg:w-1/2 flex lg:justify-end lg:pr-16' data-pex='okimsj1-55'>
+        <div class='relative w-full max-w-[450px] p-6 lg:p-8 transition-all duration-1000 ease-out group perspective-1000 preserve-3d opacity-30 translate-y-8' data-pex='okimsj1-56'>
+          <div class='absolute inset-0 bg-[#01020a]/90 border backdrop-blur-xl transition-all duration-700 ease-out z-0 border-slate-800' data-pex='okimsj1-57'>
+          <div class='absolute top-0 left-0 w-8 h-8 border-t-[2px] border-l-[2px] transition-all duration-500 z-10 border-transparent' data-pex='okimsj1-58'>
+          <div class='absolute bottom-0 right-0 w-8 h-8 border-b-[2px] border-r-[2px] transition-all duration-500 z-10 border-transparent' data-pex='okimsj1-59'>
+          <div class='relative z-20 flex flex-col gap-2' data-pex='okimsj1-60'>
+            <div class='absolute -top-4 -right-2 text-6xl lg:text-7xl font-bold font-sans pointer-events-none transition-colors duration-500' data-pex='okimsj1-61'>
+              <span class='text-slate-800/30' data-pex='okimsj1-62'>
+                04
+            <h3 class='text-white font-bold font-mono text-2xl lg:text-3xl tracking-wide uppercase' data-pex='okimsj1-63'>
+              August 24
+            <div class='h-[2px] bg-[#0ea5e9] my-1 transition-all duration-700 ease-out w-0' data-pex='okimsj1-64'>
+            <h4 class='text-lg lg:text-xl font-semibold transition-colors duration-500 text-slate-500' data-pex='okimsj1-65'>
+              Shortlisted Teams
+            <p class='text-slate-400 text-sm lg:text-base leading-relaxed mt-2' data-pex='okimsj1-66'>
+              The teams advancing to the offline phase of the hackathon are announced.
+    <div class='relative flex items-center z-20 
+         w-full lg:flex-row min-h-[120px]
+       ' data-pex='okimsj1-67'>
+      <div class='hidden lg:block lg:w-1/2' data-pex='okimsj1-68'>
+      <div class='flex items-center justify-center shrink-0 absolute left-[39px] lg:left-1/2 -translate-x-[15px] lg:-translate-x-1/2 w-[30px] h-[30px]' data-pex='okimsj1-69'>
+        <div class='w-3 h-3 border-[2px] ' data-pex='okimsj1-70'>
+      <div class='w-full pl-24 lg:pl-0 lg:w-1/2 flex lg:justify-start lg:pl-16' data-pex='okimsj1-71'>
+        <div class='relative w-full max-w-[450px] p-6 lg:p-8 transition-all duration-1000 ease-out group perspective-1000 preserve-3d opacity-30 translate-y-8' data-pex='okimsj1-72'>
+          <div class='absolute inset-0 bg-[#01020a]/90 border backdrop-blur-xl transition-all duration-700 ease-out z-0 border-slate-800' data-pex='okimsj1-73'>
+          <div class='absolute top-0 left-0 w-8 h-8 border-t-[2px] border-l-[2px] transition-all duration-500 z-10 border-transparent' data-pex='okimsj1-74'>
+          <div class='absolute bottom-0 right-0 w-8 h-8 border-b-[2px] border-r-[2px] transition-all duration-500 z-10 border-transparent' data-pex='okimsj1-75'>
+          <div class='relative z-20 flex flex-col gap-2' data-pex='okimsj1-76'>
+            <div class='absolute -top-4 -right-2 text-6xl lg:text-7xl font-bold font-sans pointer-events-none transition-colors duration-500' data-pex='okimsj1-77'>
+              <span class='text-slate-800/30' data-pex='okimsj1-78'>
+                05
+            <h3 class='text-white font-bold font-mono text-2xl lg:text-3xl tracking-wide uppercase' data-pex='okimsj1-79'>
+              September 4
+            <div class='h-[2px] bg-[#0ea5e9] my-1 transition-all duration-700 ease-out w-0' data-pex='okimsj1-80'>
+            <h4 class='text-lg lg:text-xl font-semibold transition-colors duration-500 text-slate-500' data-pex='okimsj1-81'>
+              Hackathon Kickoff
+            <p class='text-slate-400 text-sm lg:text-base leading-relaxed mt-2' data-pex='okimsj1-82'>
+              The countdown begins for 36 hours of intense building, networking, and competition.
+    <div class='relative flex items-center z-20 
+         w-full lg:flex-row-reverse min-h-[120px]
+       ' data-pex='okimsj1-83'>
+      <div class='hidden lg:block lg:w-1/2' data-pex='okimsj1-84'>
+      <div class='flex items-center justify-center shrink-0 absolute left-[39px] lg:left-1/2 -translate-x-[15px] lg:-translate-x-1/2 w-[30px] h-[30px]' data-pex='okimsj1-85'>
+        <div class='w-3 h-3 border-[2px] ' data-pex='okimsj1-86'>
+      <div class='w-full pl-24 lg:pl-0 lg:w-1/2 flex lg:justify-end lg:pr-16' data-pex='okimsj1-87'>
+        <div class='relative w-full max-w-[450px] p-6 lg:p-8 transition-all duration-1000 ease-out group perspective-1000 preserve-3d opacity-30 translate-y-8' data-pex='okimsj1-88'>
+          <div class='absolute inset-0 bg-[#01020a]/90 border backdrop-blur-xl transition-all duration-700 ease-out z-0 border-slate-800' data-pex='okimsj1-89'>
+          <div class='absolute top-0 left-0 w-8 h-8 border-t-[2px] border-l-[2px] transition-all duration-500 z-10 border-transparent' data-pex='okimsj1-90'>
+          <div class='absolute bottom-0 right-0 w-8 h-8 border-b-[2px] border-r-[2px] transition-all duration-500 z-10 border-transparent' data-pex='okimsj1-91'>
+          <div class='relative z-20 flex flex-col gap-2' data-pex='okimsj1-92'>
+            <div class='absolute -top-4 -right-2 text-6xl lg:text-7xl font-bold font-sans pointer-events-none transition-colors duration-500' data-pex='okimsj1-93'>
+              <span class='text-slate-800/30' data-pex='okimsj1-94'>
+                06
+            <h3 class='text-white font-bold font-mono text-2xl lg:text-3xl tracking-wide uppercase' data-pex='okimsj1-95'>
+              September 6
+            <div class='h-[2px] bg-[#0ea5e9] my-1 transition-all duration-700 ease-out w-0' data-pex='okimsj1-96'>
+            <h4 class='text-lg lg:text-xl font-semibold transition-colors duration-500 text-slate-500' data-pex='okimsj1-97'>
+              Hackathon concludes
+            <p class='text-slate-400 text-sm lg:text-base leading-relaxed mt-2' data-pex='okimsj1-98'>
+              Projects are submitted, judging concludes, and the winners are revealed.
+  <script >
