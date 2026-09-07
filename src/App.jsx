@@ -65,15 +65,13 @@ function App() {
 
         <Navbar />
 
-        {!isLoading && (
-          <main>
-            <Hero />
-            <Timeline />
-            <TeamGrid />
-            <Organizers />
-            <Experience />
-          </main>
-        )}
+        <main>
+          <Hero />
+          <Timeline />
+          <TeamGrid />
+          <Organizers />
+          <Experience />
+        </main>
 
         <Footer />
       </div>
