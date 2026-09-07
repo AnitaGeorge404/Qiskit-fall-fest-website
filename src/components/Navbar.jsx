@@ -1,21 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { Moon, Sun, ArrowRight } from 'lucide-react';
+import React from 'react';
+import { ArrowRight } from 'lucide-react';
 
 export default function Navbar() {
-  const [isDark, setIsDark] = useState(false);
-
-  const toggleTheme = () => {
-    setIsDark(!isDark);
-  };
-
-  useEffect(() => {
-    if (isDark) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, [isDark]);
-
   const handleScroll = (e, target) => {
     e.preventDefault();
     if (window.lenis && target.startsWith('#')) {
@@ -49,17 +35,6 @@ export default function Navbar() {
             <a href="https://docs.google.com/forms" target="_blank" rel="noreferrer" className="hidden lg:flex items-center gap-2 bg-[#5B45F2] text-white px-5 py-2.5 rounded-md text-sm font-medium hover:bg-opacity-90 transition-colors shadow-sm" title="Google Form">
               Form <ArrowRight className="w-4 h-4" />
             </a>
-            
-            <div className="h-6 w-px bg-[var(--border-color)] mx-1 hidden lg:block"></div>
-
-            <button
-              onClick={toggleTheme}
-              className="p-2 rounded-md border border-[var(--border-color)] text-[var(--text-primary)] opacity-80 hover:opacity-100 hover:bg-[var(--muted)] transition-colors"
-              aria-label="Toggle theme"
-            >
-              {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-            </button>
-
           </div>
         </div>
       </div>

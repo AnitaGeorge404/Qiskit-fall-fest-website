@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Calendar, MapPin } from 'lucide-react';
 import FoldText from './FoldText';
+import StrokeText from './StrokeText';
 
 export default function Hero() {
   return (
@@ -13,8 +14,14 @@ export default function Hero() {
         className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8"
       >
         <div className="flex flex-col items-center justify-center mb-10 space-y-4">
-          <h1 className="text-6xl md:text-8xl lg:text-[10rem] font-bold font-mono tracking-tighter text-[var(--text-primary)]">
-            IBM QISKIT
+          <h1 className="text-6xl md:text-8xl lg:text-[10rem] font-bold font-mono tracking-tighter text-[var(--text-primary)] w-full">
+            <StrokeText 
+              text="IBM QISKIT" 
+              strokeColor="currentColor" 
+              fillColor="currentColor" 
+              fontSize={160}
+              strokeWidth={2}
+            />
           </h1>
           <h2 className="text-3xl md:text-5xl font-light font-mono tracking-wide text-[var(--muted-foreground)]">
             FALL FEST EVENT 2025
