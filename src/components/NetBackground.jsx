@@ -1,12 +1,24 @@
 import React, { useEffect, useRef } from 'react';
-import { Renderer, Camera, Transform, Geometry, Program, Mesh } from 'ogl';
+import * as THREE from 'three';
+
+function createCircleTexture() {
+  const canvas = document.createElement('canvas');
+  canvas.width = 64;
+  canvas.height = 64;
+  const context = canvas.getContext('2d');
+  context.beginPath();
+  context.arc(32, 32, 30, 0, Math.PI * 2, false);
+  context.fillStyle = 'white';
+  context.fill();
+  return new THREE.CanvasTexture(canvas);
+}
 
 export default function NetBackground({
   particleCount = 250,
-  particleColor = '#555555',
-  lineColor = '#aaaaaa',
-  backgroundColor = '#ffffff',
-  maxDistance = 120,
+  particleColor = 0x555555, // Darker grey for particles
+  lineColor = 0xaaaaaa, // Lighter grey for lines
+  backgroundColor = 0xffffff, // White background
+  maxDistance = 120, // Distance threshold for connecting lines
   interactive = true,
   className = "fixed inset-0 w-full h-full -z-10 pointer-events-none overflow-hidden",
   style,
@@ -18,116 +30,89 @@ export default function NetBackground({
     if (!container) return;
 
     // 1. Scene, Camera, Renderer Setup
-    const renderer = new Renderer({ dpr: Math.min(window.devicePixelRatio, 2), alpha: true });
-    const gl = renderer.gl;
-    container.appendChild(gl.canvas);
+    const scene = new THREE.Scene();
+    scene.fog = new THREE.FogExp2(backgroundColor, 0.001);
 
-    // Convert hex string/number to normalized RGB array
-    const hexToRgb = (hex) => {
-      let color = typeof hex === 'number' ? hex : parseInt(hex.replace('#', ''), 16);
-      return [((color >> 16) & 255) / 255, ((color >> 8) & 255) / 255, (color & 255) / 255];
-    };
-    const pColor = hexToRgb(particleColor);
-    const lColor = hexToRgb(lineColor);
-    const bgColor = hexToRgb(backgroundColor);
-    
-    gl.clearColor(bgColor[0], bgColor[1], bgColor[2], 1);
-
-    const camera = new Camera(gl, { fov: 45 });
+    const camera = new THREE.PerspectiveCamera(
+      75,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      2000
+    );
     camera.position.z = 400;
 
-    const scene = new Transform();
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setClearColor(backgroundColor, 1);
+    container.appendChild(renderer.domElement);
 
     // 2. Create Particles
     const particlesData = [];
+    const particlesGeometry = new THREE.BufferGeometry();
     const particlePositions = new Float32Array(particleCount * 3);
-    const range = 800;
+
+    const range = 800; // Spread of particles
 
     for (let i = 0; i < particleCount; i++) {
-      particlePositions[i * 3] = (Math.random() - 0.5) * range;
-      particlePositions[i * 3 + 1] = (Math.random() - 0.5) * range;
-      particlePositions[i * 3 + 2] = (Math.random() - 0.5) * range;
-      
+      const x = (Math.random() - 0.5) * range;
+      const y = (Math.random() - 0.5) * range;
+      const z = (Math.random() - 0.5) * range;
+
+      particlePositions[i * 3] = x;
+      particlePositions[i * 3 + 1] = y;
+      particlePositions[i * 3 + 2] = z;
+
       particlesData.push({
-        vx: (Math.random() - 0.5) * 0.8,
-        vy: (Math.random() - 0.5) * 0.8,
-        vz: (Math.random() - 0.5) * 0.8,
+        velocity: new THREE.Vector3(
+          (Math.random() - 0.5) * 0.8,
+          (Math.random() - 0.5) * 0.8,
+          (Math.random() - 0.5) * 0.8
+        ),
       });
     }
 
-    const particlesGeometry = new Geometry(gl, {
-      position: { size: 3, data: particlePositions }
+    particlesGeometry.setAttribute(
+      'position',
+      new THREE.BufferAttribute(particlePositions, 3)
+    );
+
+    const particleMaterial = new THREE.PointsMaterial({
+      color: particleColor,
+      size: 5,
+      transparent: true,
+      opacity: 0.8,
+      map: createCircleTexture(),
+      alphaTest: 0.1,
     });
 
-    const particlesProgram = new Program(gl, {
-      vertex: `
-        attribute vec3 position;
-        uniform mat4 modelViewMatrix;
-        uniform mat4 projectionMatrix;
-        void main() {
-          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-          gl_PointSize = 5.0 * (400.0 / length(gl_Position.xyz));
-        }
-      `,
-      fragment: `
-        precision highp float;
-        uniform vec3 uColor;
-        void main() {
-          vec2 coord = gl_PointCoord - vec2(0.5);
-          if(length(coord) > 0.5) discard;
-          gl_FragColor = vec4(uColor, 0.8);
-        }
-      `,
-      uniforms: {
-        uColor: { value: pColor }
-      },
-      transparent: true
-    });
-
-    const particlesMesh = new Mesh(gl, { mode: gl.POINTS, geometry: particlesGeometry, program: particlesProgram });
-    particlesMesh.setParent(scene);
+    const particlesMesh = new THREE.Points(particlesGeometry, particleMaterial);
+    scene.add(particlesMesh);
 
     // 3. Create Lines
+    // Allocate buffer for maximum possible lines
     const maxConnections = (particleCount * (particleCount - 1)) / 2;
     const linePositions = new Float32Array(maxConnections * 6);
-    
-    const linesGeometry = new Geometry(gl, {
-      position: { size: 3, data: linePositions }
-    });
-    
-    const linesProgram = new Program(gl, {
-      vertex: `
-        attribute vec3 position;
-        uniform mat4 modelViewMatrix;
-        uniform mat4 projectionMatrix;
-        void main() {
-          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-        }
-      `,
-      fragment: `
-        precision highp float;
-        uniform vec3 uColor;
-        void main() {
-          gl_FragColor = vec4(uColor, 0.25);
-        }
-      `,
-      uniforms: {
-        uColor: { value: lColor }
-      },
+
+    const linesGeometry = new THREE.BufferGeometry();
+    linesGeometry.setAttribute('position', new THREE.BufferAttribute(linePositions, 3).setUsage(THREE.DynamicDrawUsage));
+
+    const linesMaterial = new THREE.LineBasicMaterial({
+      color: lineColor,
       transparent: true,
-      depthTest: false
+      opacity: 0.25,
     });
 
-    const linesMesh = new Mesh(gl, { mode: gl.LINES, geometry: linesGeometry, program: linesProgram });
-    linesMesh.setParent(scene);
+    const linesMesh = new THREE.LineSegments(linesGeometry, linesMaterial);
+    scene.add(linesMesh);
 
     // 4. Mouse Interaction
     let mouseX = 0;
     let mouseY = 0;
     let targetX = 0;
     let targetY = 0;
-    let windowHalfX = window.innerWidth / 2;
-    let windowHalfY = window.innerHeight / 2;
+    const windowHalfX = window.innerWidth / 2;
+    const windowHalfY = window.innerHeight / 2;
 
     const handleMouseMove = (event) => {
       if (!interactive) return;
@@ -159,59 +144,64 @@ export default function NetBackground({
       targetY = mouseY * 1.5;
       camera.position.x += (targetX - camera.position.x) * 0.05;
       camera.position.y += (-targetY - camera.position.y) * 0.05;
-      camera.lookAt([scene.position.x, scene.position.y, scene.position.z]);
+      camera.lookAt(scene.position);
 
       let vertexpos = 0;
 
+      // Update particle positions
+      const positions = particlesMesh.geometry.attributes.position.array;
+
       for (let i = 0; i < particleCount; i++) {
-        const pd = particlesData[i];
-        particlePositions[i * 3] += pd.vx;
-        particlePositions[i * 3 + 1] += pd.vy;
-        particlePositions[i * 3 + 2] += pd.vz;
+        const particleData = particlesData[i];
+        
+        positions[i * 3] += particleData.velocity.x;
+        positions[i * 3 + 1] += particleData.velocity.y;
+        positions[i * 3 + 2] += particleData.velocity.z;
 
-        if (particlePositions[i * 3 + 1] < -range / 2 || particlePositions[i * 3 + 1] > range / 2) pd.vy *= -1;
-        if (particlePositions[i * 3] < -range / 2 || particlePositions[i * 3] > range / 2) pd.vx *= -1;
-        if (particlePositions[i * 3 + 2] < -range / 2 || particlePositions[i * 3 + 2] > range / 2) pd.vz *= -1;
+        // Bounce off bounds
+        if (positions[i * 3 + 1] < -range / 2 || positions[i * 3 + 1] > range / 2) particleData.velocity.y = -particleData.velocity.y;
+        if (positions[i * 3] < -range / 2 || positions[i * 3] > range / 2) particleData.velocity.x = -particleData.velocity.x;
+        if (positions[i * 3 + 2] < -range / 2 || positions[i * 3 + 2] > range / 2) particleData.velocity.z = -particleData.velocity.z;
 
+        // Check connections
         for (let j = i + 1; j < particleCount; j++) {
-          const dx = particlePositions[i * 3] - particlePositions[j * 3];
-          const dy = particlePositions[i * 3 + 1] - particlePositions[j * 3 + 1];
-          const dz = particlePositions[i * 3 + 2] - particlePositions[j * 3 + 2];
+          const dx = positions[i * 3] - positions[j * 3];
+          const dy = positions[i * 3 + 1] - positions[j * 3 + 1];
+          const dz = positions[i * 3 + 2] - positions[j * 3 + 2];
           const distSq = dx * dx + dy * dy + dz * dz;
 
           if (distSq < maxDistance * maxDistance) {
-            linePositions[vertexpos++] = particlePositions[i * 3];
-            linePositions[vertexpos++] = particlePositions[i * 3 + 1];
-            linePositions[vertexpos++] = particlePositions[i * 3 + 2];
+            linePositions[vertexpos++] = positions[i * 3];
+            linePositions[vertexpos++] = positions[i * 3 + 1];
+            linePositions[vertexpos++] = positions[i * 3 + 2];
 
-            linePositions[vertexpos++] = particlePositions[j * 3];
-            linePositions[vertexpos++] = particlePositions[j * 3 + 1];
-            linePositions[vertexpos++] = particlePositions[j * 3 + 2];
+            linePositions[vertexpos++] = positions[j * 3];
+            linePositions[vertexpos++] = positions[j * 3 + 1];
+            linePositions[vertexpos++] = positions[j * 3 + 2];
           }
         }
       }
 
-      particlesGeometry.attributes.position.needsUpdate = true;
+      particlesMesh.geometry.attributes.position.needsUpdate = true;
 
-      linesGeometry.setDrawRange(0, vertexpos / 3);
-      linesGeometry.attributes.position.needsUpdate = true;
+      linesMesh.geometry.setDrawRange(0, vertexpos / 3);
+      linesMesh.geometry.attributes.position.needsUpdate = true;
 
+      // Gentle continuous rotation
       scene.rotation.y += 0.0005;
 
-      renderer.render({ scene, camera });
+      renderer.render(scene, camera);
     };
 
     animate();
 
     // 6. Handle Window Resizing
     const handleResize = () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
-      camera.perspective({ aspect: gl.canvas.width / gl.canvas.height });
-      windowHalfX = window.innerWidth / 2;
-      windowHalfY = window.innerHeight / 2;
     };
 
-    handleResize();
     window.addEventListener('resize', handleResize);
 
     return () => {
@@ -222,9 +212,15 @@ export default function NetBackground({
       }
       window.removeEventListener('resize', handleResize);
 
-      if (container && gl.canvas.parentNode === container) {
-        container.removeChild(gl.canvas);
+      if (container && renderer.domElement && container.contains(renderer.domElement)) {
+        container.removeChild(renderer.domElement);
       }
+      
+      particlesGeometry.dispose();
+      particleMaterial.dispose();
+      linesGeometry.dispose();
+      linesMaterial.dispose();
+      renderer.dispose();
     };
   }, [particleCount, particleColor, lineColor, backgroundColor, maxDistance, interactive]);
 
