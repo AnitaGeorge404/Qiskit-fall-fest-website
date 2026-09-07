@@ -15,19 +15,22 @@ export default function Hero() {
       >
         <div className="flex flex-col items-center justify-center mb-10 space-y-4">
           <h1 className="text-6xl md:text-8xl lg:text-[10rem] font-bold font-mono tracking-tighter text-[var(--text-primary)] w-full">
-            <StrokeText 
-              text="IBM QISKIT" 
-              strokeColor="currentColor" 
-              fillColor="currentColor" 
+            <StrokeText
+              text="IBM QISKIT"
+              strokeColor="currentColor"
+              fillColor="currentColor"
               fontSize={160}
               strokeWidth={2}
+              drawDuration={1.2}
+              fillDelay={0.5}
+              stagger={0.03}
             />
           </h1>
           <h2 className="text-3xl md:text-5xl font-light font-mono tracking-wide text-[var(--muted-foreground)]">
             FALL FEST EVENT 2026
           </h2>
         </div>
-        
+
         <div className="flex flex-col items-center justify-center gap-3 mb-10 font-mono text-sm md:text-base">
           <div className="flex items-center gap-2 text-[var(--accent-pink)] font-semibold">
             <Calendar className="w-5 h-5" />
@@ -41,7 +44,7 @@ export default function Hero() {
 
 
       </motion.div>
-      
+
 
     </section>
   );

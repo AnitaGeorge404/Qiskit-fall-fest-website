@@ -19,15 +19,15 @@ export default function Timeline() {
           text="About the Event"
           tag="h2"
           className="text-4xl md:text-5xl font-black mb-6 text-[var(--text-primary)]"
-          delay={20}
-          duration={0.4}
+          delay={10}
+          duration={0.2}
         />
         <SplitText
           text="From Quantum Fundamentals to Real-World Quantum Applications. A five-day online event designed to introduce students to quantum computing, provide hands-on experience with Qiskit, connect participants with experts from academia and industry, and foster collaborative learning through a virtual hackathon."
           tag="p"
           className="text-lg text-[var(--muted-foreground)] max-w-3xl mx-auto"
-          delay={10}
-          duration={0.3}
+          delay={5}
+          duration={0.15}
           splitType="words"
         />
       </div>

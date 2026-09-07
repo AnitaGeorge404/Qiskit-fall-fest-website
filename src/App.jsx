@@ -66,8 +66,8 @@ function App() {
         <Navbar />
 
         <main>
-          <Hero />
-          <Timeline />
+          {!isLoading && <Hero />}
+          {!isLoading && <Timeline />}
           <TeamGrid />
           <Organizers />
           <Experience />
