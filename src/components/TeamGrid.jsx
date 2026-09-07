@@ -11,9 +11,7 @@ export default function TeamGrid() {
     <section id="team" className="py-24 relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="text-center mb-16">
         <h2 className="text-4xl md:text-5xl font-black mb-4 text-[var(--text-primary)]">Meet the team</h2>
-        <p className="text-lg text-[var(--muted-foreground)] max-w-2xl mx-auto">
-          A passionate team of digital experts dedicated to your brands success.
-        </p>
+
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
@@ -30,7 +28,7 @@ export default function TeamGrid() {
               scaleOnHover={1.15}
               rotateAmplitude={12}
               showMobileWarning={false}
-              showTooltip={true}
+              showTooltip={false}
               displayOverlayContent={true}
               overlayContent={
                 <div className="flex flex-col items-center justify-center w-full h-full p-4 bg-black/70 rounded-[15px] opacity-0 hover:opacity-100 transition-opacity duration-300 text-center">

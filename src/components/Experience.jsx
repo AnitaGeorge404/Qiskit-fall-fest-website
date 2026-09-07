@@ -104,32 +104,27 @@ export default function Experience() {
           <div className="space-y-8 mb-10 flex-grow">
             <div className="flex gap-6 border-b border-[var(--border-color)] pb-6">
               <div>
-                <SplitText tag="h3" className="text-xl font-bold mb-2" text="Learn from the flock" delay={10} duration={0.3} splitType="words" />
-                <SplitText tag="p" className="text-[var(--muted-foreground)] text-base leading-relaxed" text="Connect with industry experts and learn quantum fundamentals from scratch." delay={10} duration={0.3} splitType="words" />
+                <h3 className="text-xl font-bold mb-2">Learn from the flock</h3>
+                <p className="text-[var(--muted-foreground)] text-base leading-relaxed">Connect with industry experts and learn quantum fundamentals from scratch.</p>
               </div>
             </div>
             <div className="flex gap-6 border-b border-[var(--border-color)] pb-6">
               <div>
-                <SplitText tag="h3" className="text-xl font-bold mb-2" text="Build in the cloud" delay={10} duration={0.3} splitType="words" />
-                <SplitText tag="p" className="text-[var(--muted-foreground)] text-base leading-relaxed" text="Run real quantum circuits directly on IBM Quantum hardware during the hackathon." delay={10} duration={0.3} splitType="words" />
+                <h3 className="text-xl font-bold mb-2">Build in the cloud</h3>
+                <p className="text-[var(--muted-foreground)] text-base leading-relaxed">Run real quantum circuits directly on IBM Quantum hardware during the hackathon.</p>
               </div>
             </div>
             <div className="flex gap-6 pb-2">
               <div>
-                <SplitText tag="h3" className="text-xl font-bold mb-2" text="Share the sky" delay={10} duration={0.3} splitType="words" />
-                <SplitText tag="p" className="text-[var(--muted-foreground)] text-base leading-relaxed" text="Collaborate with peers globally and present your innovative projects to the community." delay={10} duration={0.3} splitType="words" />
+                <h3 className="text-xl font-bold mb-2">Share the sky</h3>
+                <p className="text-[var(--muted-foreground)] text-base leading-relaxed">Collaborate with peers globally and present your innovative projects to the community.</p>
               </div>
             </div>
           </div>
 
-          <SplitText 
-            tag="div" 
-            className="mt-auto bg-[var(--muted)]/50 p-5 rounded-lg text-sm leading-relaxed border-l-4 border-[var(--accent-pink)] text-[var(--muted-foreground)]" 
-            text="Open to the public. Registration is required. In-person attendees should confirm they can attend at IIIT Kottayam and consent to event photography during registration." 
-            delay={10} 
-            duration={0.3} 
-            splitType="words"
-          />
+          <div className="mt-auto bg-[var(--muted)]/50 p-5 rounded-lg text-sm leading-relaxed border-l-4 border-[var(--accent-pink)] text-[var(--muted-foreground)]">
+            Open to the public. Registration is required. In-person attendees should confirm they can attend at IIIT Kottayam and consent to event photography during registration.
+          </div>
         </div>
       </div>
     </section>

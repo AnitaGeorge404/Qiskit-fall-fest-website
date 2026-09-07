@@ -38,8 +38,8 @@ export default function Navbar() {
             <a href="#contact" onClick={(e) => handleScroll(e, '#contact')} className="hidden lg:flex items-center gap-2 bg-[#5B45F2] text-white px-5 py-2.5 rounded-md text-sm font-medium hover:bg-opacity-90 transition-colors shadow-sm" title="Join Community">
               Community <ArrowRight className="w-4 h-4" />
             </a>
-            <a href="https://docs.google.com/forms" target="_blank" rel="noreferrer" className="hidden lg:flex items-center gap-2 bg-[#5B45F2] text-white px-5 py-2.5 rounded-md text-sm font-medium hover:bg-opacity-90 transition-colors shadow-sm" title="Google Form">
-              Form <ArrowRight className="w-4 h-4" />
+            <a href="https://docs.google.com/forms" target="_blank" rel="noreferrer" className="hidden lg:flex items-center gap-2 bg-[#5B45F2] text-white px-5 py-2.5 rounded-md text-sm font-medium hover:bg-opacity-90 transition-colors shadow-sm" title="RSVP">
+              RSVP <ArrowRight className="w-4 h-4" />
             </a>
           </div>
         </div>
