@@ -10,7 +10,7 @@ import TeamGrid from './components/TeamGrid';
 import Organizers from './components/Organizers';
 import Experience from './components/Experience';
 import Footer from './components/Footer';
-import DynamicBackground from './components/DynamicBackground';
+
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -60,8 +60,7 @@ function App() {
       </AnimatePresence>
 
       <div className={`relative min-h-screen transition-opacity duration-1000 ${isLoading ? 'opacity-0 h-screen overflow-hidden' : 'opacity-100'}`}>
-        {/* Dynamic background layer */}
-        <DynamicBackground />
+
 
         <Navbar />
 

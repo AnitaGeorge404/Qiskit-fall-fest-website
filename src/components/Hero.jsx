@@ -3,10 +3,12 @@ import { motion } from 'framer-motion';
 import { Calendar, MapPin } from 'lucide-react';
 import FoldText from './FoldText';
 import StrokeText from './StrokeText';
+import DynamicBackground from './DynamicBackground';
 
 export default function Hero() {
   return (
-    <section id="home" className="relative pt-32 pb-10 lg:pt-48 lg:pb-12 flex flex-col items-center justify-center text-center min-h-[80vh]">
+    <section id="home" className="relative pt-32 pb-24 lg:pt-48 lg:pb-32 flex flex-col items-center justify-center text-center min-h-screen overflow-hidden">
+      <DynamicBackground className="absolute inset-0 w-full h-full -z-10 pointer-events-none" />
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -16,7 +18,7 @@ export default function Hero() {
         <div className="flex flex-col items-center justify-center mb-10 space-y-4">
           <h1 className="text-6xl md:text-8xl lg:text-[10rem] font-bold font-mono tracking-tighter text-[var(--text-primary)] w-full">
             <StrokeText
-              text="IBM QISKIT"
+              text="QISKIT"
               strokeColor="currentColor"
               fillColor="currentColor"
               fontSize={160}
