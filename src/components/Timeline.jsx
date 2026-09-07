@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { schedule } from '../data/schedule';
+import SplitText from './SplitText';
 
 export default function Timeline() {
   const containerRef = useRef(null);
@@ -12,26 +13,37 @@ export default function Timeline() {
   const lineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   return (
-    <section id="timeline" ref={containerRef} className="pt-32 pb-24 relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="timeline" ref={containerRef} className="pt-32 pb-24 relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="text-center mb-16">
-        <h2 className="text-4xl md:text-5xl font-black mb-6">About the Event</h2>
-        <p className="text-lg text-[var(--muted-foreground)] max-w-3xl mx-auto">
-          From Quantum Fundamentals to Real-World Quantum Applications. A five-day online event designed to introduce students to quantum computing, provide hands-on experience with Qiskit, connect participants with experts from academia and industry, and foster collaborative learning through a virtual hackathon.
-        </p>
+        <SplitText
+          text="About the Event"
+          tag="h2"
+          className="text-4xl md:text-5xl font-black mb-6 text-[var(--text-primary)]"
+          delay={20}
+          duration={0.4}
+        />
+        <SplitText
+          text="From Quantum Fundamentals to Real-World Quantum Applications. A five-day online event designed to introduce students to quantum computing, provide hands-on experience with Qiskit, connect participants with experts from academia and industry, and foster collaborative learning through a virtual hackathon."
+          tag="p"
+          className="text-lg text-[var(--muted-foreground)] max-w-3xl mx-auto"
+          delay={10}
+          duration={0.3}
+          splitType="words"
+        />
       </div>
 
-      <div className="relative min-h-[800px] py-10">
+      <div className="relative min-h-[800px] py-10 overflow-hidden lg:overflow-visible">
         {/* The central vertical line */}
-        <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-1 bg-[var(--muted)] md:transform md:-translate-x-1/2 rounded-full" />
+        <div className="absolute left-8 lg:left-1/2 top-0 bottom-0 w-1 bg-[var(--border-color)] lg:-translate-x-1/2 rounded-full z-0" />
         
         {/* Animated progressive line */}
         <motion.div 
-          className="absolute left-4 md:left-1/2 top-0 w-1 bg-gradient-to-b from-pink-accent to-blue-accent md:transform md:-translate-x-1/2 rounded-full shadow-[0_0_10px_rgba(236,30,130,0.5)]"
+          className="absolute left-8 lg:left-1/2 top-0 w-1 bg-gradient-to-b from-[var(--accent-pink)] to-[var(--accent-blue)] lg:-translate-x-1/2 rounded-full shadow-[0_0_15px_var(--accent-blue)] z-10"
           style={{ height: lineHeight }}
         />
 
         {/* Nodes */}
-        <div className="relative z-10 space-y-8 md:space-y-12">
+        <div className="relative z-20 space-y-0">
           {schedule.map((item, idx) => {
             const isLeft = idx % 2 === 0;
             return (
@@ -73,41 +85,68 @@ function Node({ item, isLeft, progress, index, total }) {
   );
 
   return (
-    <div className={`flex w-full ${isLeft ? 'md:justify-start' : 'md:justify-end'} items-center relative pl-12 md:pl-0`}>
-      {/* Node Dot */}
-      <motion.div 
-        className="absolute left-4 md:left-1/2 transform -translate-x-1/2 w-6 h-6 bg-blue-accent rounded-full border-4 border-[var(--bg-primary)] shadow-[0_0_15px_rgba(0,180,216,0.8)] z-20"
-        style={{ scale }}
-      />
+    <div className={`relative flex items-center z-20 w-full min-h-[140px] py-6 ${isLeft ? 'lg:flex-row-reverse' : 'lg:flex-row'}`}>
       
-      {/* Wave pulse effect (horizontal line) - hidden on mobile */}
-      <motion.div
-        className={`hidden md:block absolute top-1/2 h-0.5 bg-gradient-to-r ${isLeft ? 'from-transparent to-pink-accent right-1/2' : 'from-pink-accent to-transparent left-1/2'} z-0`}
-        style={{ 
-          width: useTransform(progress, [nodeTriggerPoint - 0.15, nodeTriggerPoint], ["0%", "50%"]),
-          opacity
-        }}
-      />
+      {/* Spacer for one half on desktop */}
+      <div className="hidden lg:block lg:w-1/2"></div>
+      
+      {/* Center dot */}
+      <div className="flex items-center justify-center shrink-0 absolute left-8 lg:left-1/2 -translate-x-1/2 w-8 h-8 z-30">
+         <motion.div 
+           className="w-4 h-4 rounded-full border-[2px] border-[var(--accent-blue)] bg-[var(--background)] shadow-[0_0_10px_var(--accent-blue)]"
+           style={{ scale, opacity }}
+         />
+      </div>
 
-      <motion.div 
-        className={`w-full md:w-5/12 ${isLeft ? 'md:pr-8 md:text-right' : 'md:pl-8 text-left'}`}
-        style={{ opacity, y }}
-      >
-        <div className="bg-[var(--panel-bg)] border border-[var(--border-color)] p-5 md:p-6 rounded-md hover:border-[var(--accent-blue)] transition-colors">
-          <div className="text-[var(--accent-pink)] font-mono text-sm mb-2 text-left md:text-inherit">{item.time}</div>
-          <h3 className="text-xl font-bold mb-4 text-left md:text-inherit">{item.title}</h3>
-          
-          <div className="bg-[var(--muted)] p-4 rounded-md mt-4 border-l-2 border-[var(--border-color)] flex items-center gap-4">
-            <div className="w-12 h-12 rounded-md bg-[var(--background)] flex-shrink-0 flex items-center justify-center text-[10px] text-center border border-[var(--border-color)] font-mono">
-              {item.speaker.image}
-            </div>
-            <div>
-              <div className="font-bold text-left text-sm">{item.speaker.name}</div>
-              <div className="text-xs text-[var(--muted-foreground)] text-left leading-relaxed mt-1">{item.speaker.bio}</div>
-            </div>
-          </div>
-        </div>
-      </motion.div>
+      {/* Card area */}
+      <div className={`w-full pl-20 lg:pl-0 lg:w-1/2 flex ${isLeft ? 'lg:justify-end lg:pr-16' : 'lg:justify-start lg:pl-16'}`}>
+         
+         <motion.div 
+           className={`relative w-full max-w-[450px] p-6 lg:p-8 group ${isLeft ? 'lg:text-right' : 'text-left'}`}
+           style={{ opacity, y }}
+         >
+           {/* Card Background */}
+           <div className="absolute inset-0 bg-[var(--panel-bg)]/80 backdrop-blur-xl border border-[var(--border-color)] group-hover:border-[var(--accent-blue)] transition-colors duration-500 rounded-lg"></div>
+
+           {/* Corner accents */}
+           <div className="absolute top-0 left-0 w-8 h-8 border-t-[2px] border-l-[2px] border-transparent group-hover:border-[var(--accent-blue)] transition-all duration-500 rounded-tl-lg"></div>
+           <div className="absolute bottom-0 right-0 w-8 h-8 border-b-[2px] border-r-[2px] border-transparent group-hover:border-[var(--accent-blue)] transition-all duration-500 rounded-br-lg"></div>
+
+           <div className={`relative z-20 flex flex-col gap-2 ${isLeft ? 'lg:items-end' : 'items-start'}`}>
+             {/* Background Number */}
+             <div className="absolute -top-6 -right-2 text-7xl lg:text-8xl font-bold font-sans pointer-events-none transition-colors duration-500 select-none">
+               <span className="text-[var(--border-color)] opacity-40 group-hover:text-[var(--accent-blue)] group-hover:opacity-10 transition-colors duration-500">
+                 0{index + 1}
+               </span>
+             </div>
+
+             {/* Date / Time */}
+             <h3 className="text-[var(--text-primary)] font-bold font-mono text-xl lg:text-2xl tracking-wide uppercase mt-2 relative z-10">
+               {item.time}
+             </h3>
+
+             {/* Divider */}
+             <div className="h-[2px] bg-[var(--accent-blue)] my-2 transition-all duration-700 ease-out w-0 group-hover:w-full relative z-10"></div>
+
+             {/* Title */}
+             <h4 className="text-lg font-semibold transition-colors duration-500 text-[var(--muted-foreground)] group-hover:text-[var(--text-primary)] relative z-10">
+               {item.title}
+             </h4>
+
+             {/* Description */}
+             <p className="text-[var(--muted-foreground)] text-sm leading-relaxed mt-2 relative z-10">
+               {item.speaker.bio}
+             </p>
+             
+             {/* Speaker Name (if any) */}
+             {item.speaker.name !== "TBA" && (
+                <div className="text-xs font-bold text-[var(--accent-pink)] mt-2 relative z-10">
+                  Speaker: {item.speaker.name}
+                </div>
+             )}
+           </div>
+         </motion.div>
+      </div>
     </div>
   );
 }

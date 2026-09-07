@@ -24,7 +24,7 @@ export default function Hero() {
             />
           </h1>
           <h2 className="text-3xl md:text-5xl font-light font-mono tracking-wide text-[var(--muted-foreground)]">
-            FALL FEST EVENT 2025
+            FALL FEST EVENT 2026
           </h2>
         </div>
         

@@ -19,7 +19,7 @@ export default function Footer() {
               <span className="font-bold text-xl">Nebula</span>
             </div>
             <p className="text-sm text-[var(--muted-foreground)] mb-6 leading-relaxed">
-              The Information Technology University Nebula in conjunction with IBM Quantum is excited to host its inaugural IBM Qiskit Fall Fest Event 2025. Our hybrid event (in-person and virtual) will introduce participants to Quantum Computing using Qiskit.
+              The Information Technology University Nebula in conjunction with IBM Quantum is excited to host its inaugural IBM Qiskit Fall Fest Event 2026. Our hybrid event (in-person and virtual) will introduce participants to Quantum Computing using Qiskit.
             </p>
             <div className="text-xs text-[var(--muted-foreground)] opacity-70">
               Powered by Nebula, Engineering Partner
@@ -69,7 +69,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-[var(--border-color)] pt-8 text-center flex flex-col md:flex-row justify-between items-center text-xs text-[var(--muted-foreground)] opacity-70">
-          <p>© 2025 IBM Qiskit Fall Fest. All rights reserved.</p>
+          <p>© 2026 IBM Qiskit Fall Fest. All rights reserved.</p>
           <div className="mt-4 md:mt-0 space-x-4">
             <a href="#" className="hover:text-[var(--text-primary)]">Privacy Policy</a>
             <a href="#" className="hover:text-[var(--text-primary)]">Terms of Service</a>
