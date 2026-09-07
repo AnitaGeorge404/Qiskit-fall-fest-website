@@ -76,7 +76,7 @@ export default function Experience() {
               
               <Suspense fallback={<Html center><div className="text-[var(--text-primary)] font-mono text-sm whitespace-nowrap bg-white/80 border border-[var(--border-color)] px-4 py-2 rounded-md backdrop-blur-md shadow-sm">Loading 3D Model...</div></Html>}>
                 <Center>
-                  <QuantumModel scale={7.5} />
+                  <QuantumModel scale={5} />
                 </Center>
                 <Environment preset="city" />
                 <ContactShadows position={[0, -5, 0]} opacity={0.4} scale={20} blur={2} far={10} />
@@ -84,8 +84,7 @@ export default function Experience() {
               
               <OrbitControls 
                 enablePan={false} 
-                enableZoom={true} 
-                zoomSpeed={2}
+                enableZoom={false} 
                 rotateSpeed={2}
                 minDistance={4} 
                 maxDistance={20}

@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
 import './FoldText.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -18,6 +19,7 @@ const renderWhitespace = (value, key) =>
   value.split(/(\n)/).map((part, index) => {
     if (part === '\n') return <br key={`${key}-br-${index}`} />;
     if (!part) return null;
+
     return (
       <span className="fold-text-whitespace" key={`${key}-space-${index}`}>
         {part.replace(/ /g, '\u00A0')}
@@ -49,6 +51,7 @@ const FoldText = ({
 
   const segments = useMemo(() => {
     let segmentIndex = 0;
+
     const renderSegment = (content, key, split = splitBy) => {
       segmentIndex += 1;
       return (
@@ -76,6 +79,7 @@ const FoldText = ({
         </span>
       ));
     }
+
     if (splitBy === 'word') {
       return text.split(/(\s+)/).flatMap((part, index) => {
         if (!part) return [];
@@ -83,6 +87,7 @@ const FoldText = ({
         return renderSegment(part, `segment-word-${segmentIndex}`);
       });
     }
+
     return Array.from(text).map((char, index) => {
       if (char === '\n') return <br key={`br-${index}`} />;
       return renderSegment(char === ' ' ? '\u00A0' : char, `segment-char-${index}`);
@@ -91,15 +96,16 @@ const FoldText = ({
 
   useEffect(() => {
     if (typeof window === 'undefined') return undefined;
+
     const root = rootRef.current;
     if (!root) return undefined;
+
     const pieces = Array.from(root.querySelectorAll('.fold-text-piece'));
     if (!pieces.length) return undefined;
 
     const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
     const activeDuration = reduceMotion ? Math.min(duration, 0.22) : duration;
     const activeStagger = reduceMotion ? Math.min(stagger, 0.02) : stagger;
-
     const fromVars = {
       opacity: 0,
       rotateX: reduceMotion ? 0 : hingeConfig.rotateX,
@@ -108,7 +114,6 @@ const FoldText = ({
       transformOrigin: hingeConfig.origin,
       force3D: true
     };
-
     const toVars = {
       opacity: 1,
       rotateX: 0,
@@ -139,10 +144,22 @@ const FoldText = ({
     if (trigger === 'hover') {
       gsap.set(pieces, { opacity: 1, rotateX: 0, rotateY: 0, '--fold-crease': 0, transformOrigin: hingeConfig.origin });
       hoverHandler = () => play(false);
-      root.addEventListener('mouseenter', hoverHandler);
+      // Wait, we want to trigger on the parent tilted card, not just the text.
+      // We will attach hover to the closest .tilted-card-inner if it exists.
+      const parentCard = root.closest('.tilted-card-inner');
+      if (parentCard) {
+        parentCard.addEventListener('mouseenter', hoverHandler);
+      } else {
+        root.addEventListener('mouseenter', hoverHandler);
+      }
     } else if (trigger === 'scroll') {
       gsap.set(pieces, fromVars);
-      scrollTrigger = ScrollTrigger.create({ trigger: root, start: 'top 82%', once: true, onEnter: () => play(false) });
+      scrollTrigger = ScrollTrigger.create({
+        trigger: root,
+        start: 'top 82%',
+        once: true,
+        onEnter: () => play(false)
+      });
     } else if (trigger === 'loop') {
       play(true);
     } else {
@@ -150,7 +167,11 @@ const FoldText = ({
     }
 
     return () => {
-      if (hoverHandler) root.removeEventListener('mouseenter', hoverHandler);
+      const parentCard = root.closest('.tilted-card-inner');
+      if (hoverHandler) {
+        if (parentCard) parentCard.removeEventListener('mouseenter', hoverHandler);
+        else root.removeEventListener('mouseenter', hoverHandler);
+      }
       scrollTrigger?.kill();
       killTimeline();
     };

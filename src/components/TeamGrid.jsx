@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { team } from '../data/team';
-import IDCard from './IDCard';
-import { User } from 'lucide-react';
+import TiltedCard from './TiltedCard';
+import FoldText from './FoldText';
 
 export default function TeamGrid() {
   const [hoveredMember, setHoveredMember] = useState(0);
@@ -15,34 +15,36 @@ export default function TeamGrid() {
         </p>
       </div>
 
-      <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start">
-        {/* Left side: Grid of list items */}
-        <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
-          {team.map((member, idx) => (
-            <div 
-              key={idx}
-              className={`flex items-center gap-4 p-4 rounded-md border cursor-pointer transition-all duration-300 ${hoveredMember === idx ? 'bg-[var(--background)] border-[var(--text-primary)] shadow-none' : 'bg-[var(--panel-bg)] border-[var(--border-color)] hover:border-[var(--muted-foreground)]'}`}
-              onMouseEnter={() => setHoveredMember(idx)}
-            >
-              <div className="w-12 h-12 rounded-md bg-[var(--muted)] flex items-center justify-center border border-[var(--border-color)] shrink-0 overflow-hidden text-[var(--muted-foreground)]">
-                {member.image !== "<to be filled>" ? (
-                  <img src={member.image} alt={member.name} className="w-full h-full object-cover" />
-                ) : (
-                  <User className="w-6 h-6" />
-                )}
-              </div>
-              <div>
-                <h3 className="font-bold text-sm text-[var(--text-primary)]">{member.name}</h3>
-                <p className="text-xs text-[var(--muted-foreground)]">{member.role}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Right side: ID Card Details */}
-        <div className="w-full lg:w-[450px] xl:w-[500px] shrink-0 sticky top-28">
-          <IDCard member={team[hoveredMember]} />
-        </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+        {team.map((member, idx) => (
+          <div key={idx} className="w-full aspect-[3/4]">
+            <TiltedCard 
+              imageSrc={member.image} 
+              altText={member.name}
+              captionText={member.role}
+              containerHeight="100%"
+              containerWidth="100%"
+              imageHeight="100%"
+              imageWidth="100%"
+              scaleOnHover={1.05}
+              rotateAmplitude={12}
+              showMobileWarning={false}
+              showTooltip={true}
+              displayOverlayContent={true}
+              overlayContent={
+                <div className="flex items-center justify-center w-full h-full p-6 bg-black/60 rounded-[15px] opacity-0 hover:opacity-100 transition-opacity duration-300 text-center">
+                   <FoldText 
+                     text={member.name} 
+                     trigger="hover" 
+                     color="white" 
+                     fontSize={24} 
+                     className="text-center font-bold"
+                   />
+                </div>
+              }
+            />
+          </div>
+        ))}
       </div>
     </section>
   );

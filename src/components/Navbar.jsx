@@ -15,10 +15,16 @@ export default function Navbar() {
     <nav className="sticky top-0 z-50 w-full bg-[var(--panel-bg)]/80 backdrop-blur-md border-b border-[var(--border-color)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-20 items-center">
-          <div className="flex items-center gap-2">
-            <span className="font-medium text-xl text-[var(--text-primary)] tracking-tight">
+          <div className="flex items-center gap-5">
+            <span className="font-medium text-2xl text-[var(--text-primary)] tracking-tight">
               IBM <span className="font-bold">Quantum</span>
             </span>
+            <div className="flex items-center gap-2">
+              <img src="/qiskit-logo.png" alt="Qiskit" className="h-8 w-auto" />
+              <span className="font-bold text-2xl text-[var(--text-primary)] tracking-tight">
+                QISKIT
+              </span>
+            </div>
           </div>
           
           <div className="hidden md:flex items-center space-x-8">
