@@ -10,7 +10,7 @@ import TeamGrid from './components/TeamGrid';
 import Organizers from './components/Organizers';
 import Experience from './components/Experience';
 import Footer from './components/Footer';
-import QuantumInterference from './components/QuantumInterference';
+import DynamicBackground from './components/DynamicBackground';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -60,19 +60,21 @@ function App() {
       </AnimatePresence>
 
       <div className={`relative min-h-screen transition-opacity duration-1000 ${isLoading ? 'opacity-0 h-screen overflow-hidden' : 'opacity-100'}`}>
-        {/* Quantum Interference background layer */}
-        <QuantumInterference />
-        
+        {/* Dynamic background layer */}
+        <DynamicBackground />
+
         <Navbar />
-        
-        <main>
-          <Hero />
-          <Timeline />
-          <TeamGrid />
-          <Organizers />
-          <Experience />
-        </main>
-        
+
+        {!isLoading && (
+          <main>
+            <Hero />
+            <Timeline />
+            <TeamGrid />
+            <Organizers />
+            <Experience />
+          </main>
+        )}
+
         <Footer />
       </div>
     </>
