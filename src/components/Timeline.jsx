@@ -2,9 +2,11 @@ import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { schedule } from '../data/schedule';
 import SplitText from './SplitText';
+import { useDeviceTier } from '../contexts/DeviceTierContext';
 
 export default function Timeline() {
   const containerRef = useRef(null);
+  const deviceTier = useDeviceTier();
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start center", "end center"]
@@ -39,7 +41,7 @@ export default function Timeline() {
         {/* Animated progressive line */}
         <motion.div 
           className="absolute left-8 lg:left-1/2 top-0 w-1 bg-gradient-to-b from-[var(--accent-pink)] to-[var(--accent-blue)] lg:-translate-x-1/2 rounded-full shadow-[0_0_15px_var(--accent-blue)] z-10"
-          style={{ height: lineHeight }}
+          style={deviceTier === 'low' ? { height: '100%' } : { height: lineHeight }}
         />
 
         {/* Nodes */}
@@ -64,6 +66,7 @@ export default function Timeline() {
 }
 
 function Node({ item, isLeft, progress, index, total }) {
+  const deviceTier = useDeviceTier();
   const nodeTriggerPoint = (index + 0.5) / total;
   
   const opacity = useTransform(
@@ -94,7 +97,7 @@ function Node({ item, isLeft, progress, index, total }) {
       <div className="flex items-center justify-center shrink-0 absolute left-8 lg:left-1/2 -translate-x-1/2 w-8 h-8 z-30">
          <motion.div 
            className="w-4 h-4 rounded-full border-[2px] border-[var(--accent-blue)] bg-[var(--background)] shadow-[0_0_10px_var(--accent-blue)]"
-           style={{ scale, opacity }}
+           style={deviceTier === 'low' ? {} : { scale, opacity }}
          />
       </div>
 
@@ -103,7 +106,7 @@ function Node({ item, isLeft, progress, index, total }) {
          
          <motion.div 
            className={`relative w-full max-w-[450px] p-6 lg:p-8 group text-left`}
-           style={{ opacity, y }}
+           style={deviceTier === 'low' ? {} : { opacity, y }}
          >
            {/* Card Background */}
            <div className="absolute inset-0 bg-[var(--panel-bg)]/80 backdrop-blur-xl border border-[var(--border-color)] group-hover:border-[var(--accent-blue)] transition-colors duration-500 rounded-lg"></div>

@@ -4,13 +4,16 @@ import { Calendar, MapPin } from 'lucide-react';
 import FoldText from './FoldText';
 import StrokeText from './StrokeText';
 import DynamicBackground from './DynamicBackground';
+import { useDeviceTier } from '../contexts/DeviceTierContext';
 
 export default function Hero() {
+  const deviceTier = useDeviceTier();
+
   return (
     <section id="home" className="relative pt-32 pb-24 lg:pt-48 lg:pb-32 flex flex-col items-center justify-center text-center min-h-screen overflow-hidden">
       <DynamicBackground className="absolute inset-0 w-full h-full -z-10 pointer-events-none" />
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={deviceTier === 'low' ? false : { opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
         className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8"

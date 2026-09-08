@@ -1,8 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link as LinkIcon } from 'lucide-react';
+import { useDeviceTier } from '../contexts/DeviceTierContext';
 
 export default function IDCard({ member }) {
+  const deviceTier = useDeviceTier();
+
   if (!member) return (
     <div className="w-full h-full bg-[var(--panel-bg)] border border-[var(--border-color)] border-dashed flex items-center justify-center opacity-50">
       <p className="text-sm text-[var(--muted-foreground)]">Hover over a team member</p>
@@ -11,7 +14,7 @@ export default function IDCard({ member }) {
 
   return (
     <motion.div 
-      initial={{ opacity: 0, scale: 0.95 }}
+      initial={deviceTier === 'low' ? false : { opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.3 }}
       className="w-full bg-[var(--panel-bg)] border border-[var(--border-color)] rounded-md p-6 flex flex-col md:flex-row gap-6 relative overflow-hidden h-full"

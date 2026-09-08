@@ -3,6 +3,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SplitText as GSAPSplitText } from 'gsap/SplitText';
 import { useGSAP } from '@gsap/react';
+import { useDeviceTier } from '../contexts/DeviceTierContext';
 
 gsap.registerPlugin(ScrollTrigger, GSAPSplitText, useGSAP);
 
@@ -25,6 +26,7 @@ const SplitText = ({
   const animationCompletedRef = useRef(false);
   const onCompleteRef = useRef(onLetterAnimationComplete);
   const [fontsLoaded, setFontsLoaded] = useState(false);
+  const deviceTier = useDeviceTier();
 
   // Keep callback ref updated
   useEffect(() => {
@@ -43,6 +45,11 @@ const SplitText = ({
 
   useGSAP(
     () => {
+      if (deviceTier === 'low') {
+        animationCompletedRef.current = true;
+        onCompleteRef.current?.();
+        return;
+      }
       if (!ref.current || !text || !fontsLoaded) return;
       // Prevent re-animation if already completed
       if (animationCompletedRef.current) return;

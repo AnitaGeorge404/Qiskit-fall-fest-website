@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { useFrame, Canvas } from '@react-three/fiber';
 import * as THREE from 'three';
+import { useDeviceTier } from '../contexts/DeviceTierContext';
 
 const colors = {
   white: 0xffffff,
@@ -130,11 +131,15 @@ const Plexus = () => {
 };
 
 export default function QuantumInterference() {
+  const deviceTier = useDeviceTier();
+
   return (
     <div className="fixed inset-0 z-[-1] pointer-events-none bg-[var(--bg-primary)]">
-      <Canvas camera={{ position: [0, 0, 250], fov: 75 }} gl={{ alpha: true, antialias: true }}>
-        <Plexus />
-      </Canvas>
+      {deviceTier !== 'low' && (
+        <Canvas camera={{ position: [0, 0, 250], fov: 75 }} gl={{ alpha: true, antialias: deviceTier !== 'mid' }}>
+          <Plexus />
+        </Canvas>
+      )}
     </div>
   );
 }

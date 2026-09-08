@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { useEffect, useRef, useState, useMemo } from 'react';
+import { useDeviceTier } from '../contexts/DeviceTierContext';
 
 const buildKeyframes = (from, steps) => {
   const keys = new Set([...Object.keys(from), ...steps.flatMap(s => Object.keys(s))]);
@@ -29,8 +30,10 @@ const BlurText = ({
   const elements = animateBy === 'words' ? text.split(' ') : text.split('');
   const [inView, setInView] = useState(false);
   const ref = useRef(null);
+  const deviceTier = useDeviceTier();
 
   useEffect(() => {
+    if (deviceTier === 'low') return;
     if (!ref.current) return;
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -43,7 +46,7 @@ const BlurText = ({
     );
     observer.observe(ref.current);
     return () => observer.disconnect();
-  }, [threshold, rootMargin]);
+  }, [threshold, rootMargin, deviceTier]);
 
   const defaultFrom = useMemo(
     () =>
@@ -69,6 +72,14 @@ const BlurText = ({
   const stepCount = toSnapshots.length + 1;
   const totalDuration = stepDuration * (stepCount - 1);
   const times = Array.from({ length: stepCount }, (_, i) => (stepCount === 1 ? 0 : i / (stepCount - 1)));
+
+  if (deviceTier === 'low') {
+    return (
+      <Tag className={className} style={{ display: 'flex', flexWrap: 'wrap' }}>
+        {text}
+      </Tag>
+    );
+  }
 
   return (
     <Tag ref={ref} className={className} style={{ display: 'flex', flexWrap: 'wrap' }}>

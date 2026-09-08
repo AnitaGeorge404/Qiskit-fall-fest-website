@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, createElement, useMemo, useCallback } from 'react';
 import { gsap } from 'gsap';
 import './TextType.css';
+import { useDeviceTier } from '../contexts/DeviceTierContext';
 
 const TextType = ({
   text,
@@ -30,6 +31,7 @@ const TextType = ({
   const [isVisible, setIsVisible] = useState(!startOnVisible);
   const cursorRef = useRef(null);
   const containerRef = useRef(null);
+  const deviceTier = useDeviceTier();
 
   const textArray = useMemo(() => (Array.isArray(text) ? text : [text]), [text]);
 
@@ -144,6 +146,16 @@ const TextType = ({
     variableSpeed,
     onSentenceComplete
   ]);
+
+  if (deviceTier === 'low') {
+    return createElement(
+      Component,
+      { className: `text-type ${className}`, ...props },
+      <span className="text-type__content" style={{ color: textColors[0] || 'inherit' }}>
+        {textArray[0]}
+      </span>
+    );
+  }
 
   const shouldHideCursor =
     hideCursorWhileTyping && (currentCharIndex < textArray[currentTextIndex].length || isDeleting);

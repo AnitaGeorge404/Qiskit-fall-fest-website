@@ -1,6 +1,7 @@
 import { useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useDeviceTier } from '../contexts/DeviceTierContext';
 
 import './StrokeText.css';
 
@@ -31,6 +32,7 @@ const StrokeText = ({
   const rootRef = useRef(null);
   const strokeTextRef = useRef(null);
   const wipeRectRef = useRef(null);
+  const deviceTier = useDeviceTier();
 
   const [box, setBox] = useState(null);
 
@@ -124,7 +126,7 @@ const StrokeText = ({
     };
 
     const prefersReducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) {
+    if (prefersReducedMotion || deviceTier === 'low') {
       setEnd();
       return () => gsap.killTweensOf(targets);
     }

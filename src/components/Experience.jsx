@@ -4,6 +4,7 @@ import { OrbitControls, Environment, ContactShadows, useGLTF, Html, Center } fro
 import * as THREE from 'three';
 import TextType from './TextType';
 import SplitText from './SplitText';
+import { useDeviceTier } from '../contexts/DeviceTierContext';
 function QuantumModel(props) {
   const { scene } = useGLTF('/models/quantum-computer.glb');
   
@@ -55,6 +56,8 @@ function QuantumModel(props) {
 useGLTF.preload('/models/quantum-computer.glb');
 
 export default function Experience() {
+  const deviceTier = useDeviceTier();
+
   return (
     <section id="events" className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       <div className="flex flex-col lg:flex-row gap-8 min-h-[600px]">
@@ -65,33 +68,52 @@ export default function Experience() {
               Interactive Hardware Model
             </div>
           </div>
-          <div className="w-full h-full min-h-[500px] lg:min-h-[600px] cursor-grab active:cursor-grabbing">
-            <Canvas camera={{ position: [0, 0, 10], fov: 40 }}>
-              <ambientLight intensity={1.2} />
-              <directionalLight position={[10, 10, 10]} intensity={1.0} color="#ffffff" />
-              <directionalLight position={[-10, 10, -10]} intensity={0.5} color="#ffffff" />
-              <directionalLight position={[10, -10, -10]} intensity={0.5} color="#ffffff" />
-              <directionalLight position={[-10, -10, 10]} intensity={0.5} color="#ffffff" />
-              <directionalLight position={[0, 0, 15]} intensity={1.0} color="#ffffff" />
-              
-              <Suspense fallback={<Html center><div className="text-[var(--text-primary)] font-mono text-sm whitespace-nowrap bg-white/80 border border-[var(--border-color)] px-4 py-2 rounded-md backdrop-blur-md shadow-sm">Loading 3D Model...</div></Html>}>
-                <Center>
-                  <QuantumModel scale={5} />
-                </Center>
-                <Environment files="/potsdamer_platz_1k.hdr" />
-                <ContactShadows position={[0, -5, 0]} opacity={0.4} scale={20} blur={2} far={10} />
-              </Suspense>
-              
-              <OrbitControls 
-                enablePan={false} 
-                enableZoom={false} 
-                rotateSpeed={2}
-                minDistance={4} 
-                maxDistance={20}
-                autoRotate
-                autoRotateSpeed={1.0}
-              />
-            </Canvas>
+          <div className="w-full h-full min-h-[500px] lg:min-h-[600px] cursor-grab active:cursor-grabbing relative">
+            {deviceTier === 'low' ? (
+              <div className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-[var(--background)] to-[var(--muted)]">
+                <div className="w-24 h-24 mb-6 opacity-30 text-[var(--text-primary)]">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
+                    <polygon points="12 2 2 7 12 12 22 7 12 2" />
+                    <polygon points="2 17 12 22 22 17" />
+                    <polygon points="2 12 12 17 22 12" />
+                  </svg>
+                </div>
+                <span className="text-sm font-mono text-[var(--muted-foreground)] px-4 text-center">3D Model Disabled for Performance</span>
+              </div>
+            ) : (
+              <Canvas 
+                camera={{ position: [0, 0, 10], fov: 40 }}
+                dpr={deviceTier === 'mid' ? 1 : [1, 2]}
+                gl={{ antialias: deviceTier !== 'mid' }}
+              >
+                <ambientLight intensity={1.2} />
+                <directionalLight position={[10, 10, 10]} intensity={1.0} color="#ffffff" />
+                <directionalLight position={[-10, 10, -10]} intensity={0.5} color="#ffffff" />
+                <directionalLight position={[10, -10, -10]} intensity={0.5} color="#ffffff" />
+                <directionalLight position={[-10, -10, 10]} intensity={0.5} color="#ffffff" />
+                <directionalLight position={[0, 0, 15]} intensity={1.0} color="#ffffff" />
+                
+                <Suspense fallback={<Html center><div className="text-[var(--text-primary)] font-mono text-sm whitespace-nowrap bg-white/80 border border-[var(--border-color)] px-4 py-2 rounded-md backdrop-blur-md shadow-sm">Loading 3D Model...</div></Html>}>
+                  <Center>
+                    <QuantumModel scale={5} />
+                  </Center>
+                  <Environment files="/potsdamer_platz_1k.hdr" />
+                  {deviceTier !== 'mid' && (
+                    <ContactShadows position={[0, -5, 0]} opacity={0.4} scale={20} blur={2} far={10} />
+                  )}
+                </Suspense>
+                
+                <OrbitControls 
+                  enablePan={false} 
+                  enableZoom={false} 
+                  rotateSpeed={2}
+                  minDistance={4} 
+                  maxDistance={20}
+                  autoRotate
+                  autoRotateSpeed={1.0}
+                />
+              </Canvas>
+            )}
           </div>
         </div>
 

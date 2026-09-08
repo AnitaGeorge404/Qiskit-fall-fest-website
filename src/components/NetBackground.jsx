@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
+import { useDeviceTier } from '../contexts/DeviceTierContext';
 
 function createCircleTexture() {
   const canvas = document.createElement('canvas');
@@ -24,8 +25,10 @@ export default function NetBackground({
   style,
 }) {
   const containerRef = useRef(null);
+  const deviceTier = useDeviceTier();
 
   useEffect(() => {
+    if (deviceTier === 'low') return;
     const container = containerRef.current;
     if (!container) return;
 
@@ -222,7 +225,19 @@ export default function NetBackground({
       linesMaterial.dispose();
       renderer.dispose();
     };
-  }, [particleCount, particleColor, lineColor, backgroundColor, maxDistance, interactive]);
+  }, [particleCount, particleColor, lineColor, backgroundColor, maxDistance, interactive, deviceTier]);
+
+  if (deviceTier === 'low') {
+    return (
+      <div 
+        className={className}
+        style={{
+          ...style,
+          background: 'radial-gradient(circle at 50% 50%, var(--background) 0%, var(--muted) 100%)'
+        }}
+      />
+    );
+  }
 
   return (
     <div

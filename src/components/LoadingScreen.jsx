@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useDeviceTier } from '../contexts/DeviceTierContext';
 
 export default function LoadingScreen({ onComplete }) {
   const [isVisible, setIsVisible] = useState(true);
+  const deviceTier = useDeviceTier();
+  const loadingDuration = deviceTier === 'low' ? 500 : 3800;
 
   useEffect(() => {
     // Total sequence: 
@@ -13,10 +16,10 @@ export default function LoadingScreen({ onComplete }) {
     // 3.7s-4.5s (loading screen fades out)
     const timer = setTimeout(() => {
       setIsVisible(false);
-    }, 3800);
+    }, loadingDuration);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [loadingDuration]);
 
   const handleExitComplete = () => {
     if (onComplete) {
@@ -97,6 +100,24 @@ export default function LoadingScreen({ onComplete }) {
       }
     }
   };
+
+  if (deviceTier === 'low') {
+    return (
+      <AnimatePresence onExitComplete={handleExitComplete}>
+        {isVisible && (
+          <motion.div
+            key="loader-container-low"
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 z-[9999] flex items-center justify-center bg-white"
+          >
+            <div className="w-10 h-10 border-4 border-[var(--muted)] border-t-[var(--text-primary)] rounded-full animate-spin"></div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    );
+  }
 
   return (
     <AnimatePresence onExitComplete={handleExitComplete}>

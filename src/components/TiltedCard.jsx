@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
 import './TiltedCard.css';
+import { useDeviceTier } from '../contexts/DeviceTierContext';
 
 const springValues = {
   damping: 30,
@@ -24,6 +25,9 @@ export default function TiltedCard({
   displayOverlayContent = false
 }) {
   const ref = useRef(null);
+  const deviceTier = useDeviceTier();
+  const enablePhysics = deviceTier === 'high';
+  const enableHover = deviceTier !== 'low';
 
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -83,9 +87,9 @@ export default function TiltedCard({
         height: containerHeight,
         width: containerWidth
       }}
-      onMouseMove={handleMouse}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+      onMouseMove={enablePhysics ? handleMouse : undefined}
+      onMouseEnter={enableHover ? handleMouseEnter : undefined}
+      onMouseLeave={enableHover ? handleMouseLeave : undefined}
     >
       {showMobileWarning && (
         <div className="tilted-card-mobile-alert">This effect is not optimized for mobile. Check on desktop.</div>

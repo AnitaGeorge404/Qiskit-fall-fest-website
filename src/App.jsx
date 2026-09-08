@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import Lenis from 'lenis';
 import 'lenis/dist/lenis.css';
@@ -8,11 +8,15 @@ import Hero from './components/Hero';
 import Timeline from './components/Timeline';
 import TeamGrid from './components/TeamGrid';
 import Organizers from './components/Organizers';
-import Experience from './components/Experience';
 import Footer from './components/Footer';
+import { DeviceTierContext } from './contexts/DeviceTierContext';
+import { getDeviceTier } from './utils/deviceTier';
+
+const Experience = lazy(() => import('./components/Experience'));
 
 
 function App() {
+  const [deviceTier] = useState(() => getDeviceTier());
   const [isLoading, setIsLoading] = useState(true);
 
   // Fallback timeout just in case animation doesn't complete
@@ -25,6 +29,8 @@ function App() {
 
   // Initialize Lenis for smooth scrolling
   useEffect(() => {
+    if (deviceTier === 'low') return;
+
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -49,10 +55,10 @@ function App() {
       lenis.destroy();
       delete window.lenis;
     };
-  }, []);
+  }, [deviceTier]);
 
   return (
-    <>
+    <DeviceTierContext.Provider value={deviceTier}>
       <AnimatePresence>
         {isLoading && (
           <LoadingScreen onComplete={() => setIsLoading(false)} />
@@ -69,12 +75,14 @@ function App() {
           {!isLoading && <Timeline />}
           <TeamGrid />
           <Organizers />
-          <Experience />
+          <Suspense fallback={null}>
+            <Experience />
+          </Suspense>
         </main>
 
         <Footer />
       </div>
-    </>
+    </DeviceTierContext.Provider>
   );
 }
 

@@ -4,6 +4,7 @@ import { Sparkles, Award, MapPin } from 'lucide-react';
 import { featuredOrganizer } from '../data/organizers';
 import DotField from './DotField';
 import CircularGallery from './CircularGallery';
+import { useDeviceTier } from '../contexts/DeviceTierContext';
 
 const studentGalleryItems = [
   { image: 'https://placehold.co/600x800/444444/444444.png', text: 'Student Lead' },
@@ -15,24 +16,28 @@ const studentGalleryItems = [
 ];
 
 export default function Organizers() {
+  const deviceTier = useDeviceTier();
+
   return (
     <section className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       {/* Outer Event Organizers Card with Unified DotField Background */}
       <div className="relative overflow-hidden bg-[var(--panel-bg)]/80 border border-[var(--border-color)] rounded-3xl p-6 sm:p-10 md:p-12 shadow-2xl backdrop-blur-md">
         {/* Full-width DotField Background for the entire Event Organizers container */}
-        <div className="absolute inset-0 pointer-events-auto">
-          <DotField
-            dotRadius={4.5}
-            dotSpacing={6}
-            cursorRadius={380}
-            cursorForce={0.12}
-            bulgeStrength={80}
-            glowRadius={0}
-            gradientFrom="rgba(156, 163, 175, 0.75)"
-            gradientTo="rgba(107, 114, 128, 0.55)"
-            glowColor="transparent"
-          />
-        </div>
+        {deviceTier !== 'low' && (
+          <div className="absolute inset-0 pointer-events-auto">
+            <DotField
+              dotRadius={deviceTier === 'mid' ? 3 : 4.5}
+              dotSpacing={deviceTier === 'mid' ? 10 : 6}
+              cursorRadius={deviceTier === 'mid' ? 200 : 380}
+              cursorForce={0.12}
+              bulgeStrength={80}
+              glowRadius={0}
+              gradientFrom="rgba(156, 163, 175, 0.75)"
+              gradientTo="rgba(107, 114, 128, 0.55)"
+              glowColor="transparent"
+            />
+          </div>
+        )}
 
         {/* Section Content sitting over DotField */}
         <div className="relative z-10 pointer-events-none">
@@ -74,16 +79,27 @@ export default function Organizers() {
             </div>
 
             {/* Circular Gallery Container */}
-            <div className="relative w-full h-[400px] md:h-[450px] pointer-events-auto select-none rounded-2xl overflow-hidden">
-              <CircularGallery
-                items={studentGalleryItems}
-                bend={3}
-                textColor="#000000"
-                borderRadius={0.06}
-                scrollEase={0.03}
-                scrollSpeed={2}
-              />
-            </div>
+            {deviceTier === 'low' ? (
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mt-8 pointer-events-auto">
+                {studentGalleryItems.map((item, i) => (
+                  <div key={i} className="flex flex-col items-center bg-[var(--panel-bg)]/50 p-4 rounded-xl border border-[var(--border-color)]">
+                    <img src={item.image} alt={item.text} className="w-full h-32 object-cover rounded-lg mb-2" />
+                    <span className="text-sm font-semibold text-[var(--text-primary)]">{item.text}</span>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="relative w-full h-[400px] md:h-[450px] pointer-events-auto select-none rounded-2xl overflow-hidden">
+                <CircularGallery
+                  items={studentGalleryItems}
+                  bend={3}
+                  textColor="#000000"
+                  borderRadius={0.06}
+                  scrollEase={deviceTier === 'mid' ? 0.1 : 0.03}
+                  scrollSpeed={2}
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>

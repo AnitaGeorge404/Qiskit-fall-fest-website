@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useDeviceTier } from '../contexts/DeviceTierContext';
 
 import './FoldText.css';
 
@@ -45,6 +46,7 @@ const FoldText = ({
 }) => {
   const rootRef = useRef(null);
   const timelineRef = useRef(null);
+  const deviceTier = useDeviceTier();
   const hingeConfig = HINGE_CONFIG[hinge] || HINGE_CONFIG.top;
   const safeCrease = clamp(creaseShading, 0, 1);
   const safePerspective = Math.max(120, perspective);
@@ -104,6 +106,16 @@ const FoldText = ({
     if (!pieces.length) return undefined;
 
     const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    if (deviceTier === 'low') {
+      gsap.set(pieces, {
+        opacity: 1,
+        rotateX: 0,
+        rotateY: 0,
+        '--fold-crease': 0,
+      });
+      return undefined;
+    }
+
     const activeDuration = reduceMotion ? Math.min(duration, 0.22) : duration;
     const activeStagger = reduceMotion ? Math.min(stagger, 0.02) : stagger;
     const fromVars = {
